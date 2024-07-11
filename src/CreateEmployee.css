@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fafafa;
+  margin: 0;
+}
+
+aside {
+  padding-top: 8px;
+  position: fixed;
+  height: 100vh;
+  width: 300px;
+  background-color: #ffff;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.05);
+}
+
+.nav {
+  background-color: #03aeee;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  margin-left: 10px;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  margin-top: 30px;
+}
+
+a {
+  margin-left: 10px;
+  display: flex;
+  height: 40px;
+  align-content: center;
+}
+
+.icon {
+  background-color: #ffff;
+  width: 25px;
+  height: 25px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.ico {
+  display: block;
+  height: 16px;
+  width: 20px;
+  margin: 0 auto;
+}
+
+.logo img {
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+}
+
+.det {
+  display: flex;
+  flex-direction: column;
+  width: 33.33%;
+  row-gap: 4px;
+}
+
+.createEmployeeMain {
+  padding-top: 66px;
+  margin-left: 300px;
+  height: 100vh;
+}
+
+.CEsection {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffff;
+  margin: 15px;
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  margin: 0;
+}
+
+.CEinput {
+  height: 30px;
+  width: 20vw;
+  border-radius: 5px;
+  border-width: 1px;
+  background: #fafafa;
+  border-style: solid;
+  border-color: #e7e7e7;
+  padding-left: 8px;
+}
+
+select {
+  height: 30px;
+  width: 20vw;
+  border-radius: 5px;
+  border-width: 1px;
+  background: #fafafa;
+  border-style: solid;
+  border-color: #e7e7e7;
+  padding-left: 8px;
+  color: #676767;
+}
+
+.CEdetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+.CEform {
+  display: flex;
+  flex-direction: column;
+  row-gap: 60px;
+}
+
+.CEbutton {
+  height: 30px;
+  width: 150px;
+  margin-right: 10px;
+  background-color: #03aeee;
+  color: #ffff;
+  font-weight: bolder;
+  border-width: 1px;
+  border-style: none;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px #03aeee3f;
+}
+
+.cancel {
+  background-color: #ffff;
+  color: #acacac;
+  border-style: solid;
+  border-color: #acacac;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+}

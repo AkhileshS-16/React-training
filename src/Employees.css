@@ -1,0 +1,129 @@
+.tabhead {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  color: #000;
+  background-color: #93f1ff38;
+  box-shadow: none;
+  gap: 30px;
+  padding: 20px;
+  height: fit-content;
+}
+
+.head {
+  font-weight: 600;
+}
+
+.tabbody {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+  padding: 15px;
+  height: fit-content;
+  color: #000;
+}
+
+.Inactive {
+  height: 20px;
+  width: 100px;
+  text-align: center;
+  padding: 1px;
+  border-radius: 10px;
+  background-color: rgb(255, 127, 146);
+}
+.Active {
+  height: 20px;
+  width: 100px;
+  text-align: center;
+  padding: 1px;
+  border-radius: 10px;
+  background-color: rgb(161, 251, 148);
+}
+
+.Probation {
+  height: 20px;
+  width: 100px;
+  text-align: center;
+  padding: 1px;
+  border-radius: 10px;
+  background-color: rgb(255, 210, 127);
+}
+
+.empaction {
+  display: flex;
+  gap: 20px;
+  height: 24px;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.selectfilter {
+  background-color: #93f1ff38;
+  border-style: none;
+  width: 120px;
+  height: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.creatediv {
+  position: relative;
+  margin-right: 20px;
+}
+
+.create {
+  display: flex;
+  align-items: center;
+  background-color: #93f1ff38;
+  height: 30px;
+  width: auto;
+  min-width: 100px;
+  border-radius: 0 15px 15px 0;
+  padding-left: 35px;
+  text-align: end;
+  padding-right: 15px;
+  color: #000;
+}
+
+.addsymbol {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  background-color: #03aeee;
+  text-align: center;
+  font-size: 40px;
+  border-radius: 25px;
+  bottom: -5px;
+  left: -15px;
+}
+
+.detailsection {
+  width: 80%;
+}
+
+.detailcontainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.detailhr {
+  width: 98%;
+  border-color: #00000012;
+  margin: 20px 0 20px;
+}
+
+.detail2 {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.detailspace {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

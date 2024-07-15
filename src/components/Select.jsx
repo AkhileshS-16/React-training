@@ -7,14 +7,12 @@ const Select = ({ id, choose, onselect }) => {
 
   return (
     <div className="det">
-      <label htmlFor={id}>{id}</label>
-      <select id={id}>
+      <label className="detaillabel" htmlFor={id}>
+        {id}
+      </label>
+      <select id={id} onChange={onSelect}>
         {choose.map((option) => {
-          return (
-            <option key={option} onChange={onSelect}>
-              {option}
-            </option>
-          );
+          return <option key={option}>{option}</option>;
         })}
       </select>
     </div>

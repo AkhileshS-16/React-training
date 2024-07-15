@@ -4,13 +4,20 @@ import TextField from "../components/TextField";
 import loginlogo from "../assets/kv-login.jpeg";
 import kvlogo from "../assets/kv-logo.png";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const Login = ({ handleLogin }) => {
+const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const loginFocus = useRef();
+
+  const handleLogin = () => {
+    localStorage.setItem("token", true);
+    navigate("/employees");
+  };
 
   const handleUsername = (text) => {
     if (text.length <= 5) {
@@ -31,6 +38,10 @@ const Login = ({ handleLogin }) => {
   }, [username, password]);
 
   useEffect(() => loginFocus.current.focus());
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) navigate("/employees");
+  }, []);
 
   return (
     <main className="loginmain">

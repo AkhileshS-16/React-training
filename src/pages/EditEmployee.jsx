@@ -1,55 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import Select from "../components/Select";
 import { useEffect } from "react";
 import EmployeeForm from "../components/EmployeeForm";
-
-const employees = [
-  {
-    ename: "Alice",
-    eid: "1",
-    jd: "05-04-2023",
-    Role: "HR",
-    status: "Active",
-    exp: "2 Years",
-    add: "Kochi",
-  },
-  {
-    ename: "Bob",
-    eid: "3",
-    jd: "05-04-2024",
-    Role: "UX",
-    status: "Probation",
-    exp: "1 Year",
-    add: "KOllam",
-  },
-  {
-    ename: "Charlie",
-    eid: "2",
-    jd: "05-04-2020",
-    Role: "UI",
-    status: "Active",
-    exp: "4 Years",
-    add: "Thrissur",
-  },
-  {
-    ename: "Dawn",
-    eid: "5",
-    jd: "05-04-2019",
-    Role: "Developer",
-    status: "Inactive",
-    exp: "3 Years",
-    add: "Kochi",
-  },
-  {
-    ename: "Eve",
-    eid: "4",
-    jd: "05-04-2021",
-    Role: "HR",
-    status: "Active",
-    exp: "3 Years",
-    add: "Trivandrum",
-  },
-];
 
 const fields = [
   {
@@ -67,12 +20,12 @@ const fields = [
   {
     id: "Role",
     Component: Select,
-    choose: ["UI", "UX", "Devloper", "HR"],
+    choose: ["UI", "UX", "Developer", "HR"],
   },
   {
     id: "status",
     Component: Select,
-    choose: ["Active", "Inactive"],
+    choose: ["Active", "Probation", "Inactive"],
   },
   {
     id: "exp",
@@ -87,11 +40,12 @@ const fields = [
 const EditEmployee = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  let employee = false;
+  const { state, dispatch } = useOutletContext();
+  let employees = state.employees;
+  let employee = employees.find((e) => e.eid == id);
+
   useEffect(() => {
-    for (let i of employees) employee = i.eid == id ? i : false;
-    console.log(employee);
-    if (!employee) navigate("/");
+    if (!employee) navigate("/employees");
   }, []);
 
   return (
@@ -104,6 +58,9 @@ const EditEmployee = () => {
         editid={id}
         iddisable={true}
         employee={employee}
+        state={state}
+        dispatch={dispatch}
+        text="Edit"
       />
     </main>
   );

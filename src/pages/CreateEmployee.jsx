@@ -1,6 +1,7 @@
 import "../CreateEmployee.css";
 import Select from "../components/Select";
 import EmployeeForm from "../components/EmployeeForm";
+import { useOutletContext } from "react-router-dom";
 
 const fields = [
   {
@@ -23,7 +24,7 @@ const fields = [
   {
     id: "status",
     Component: Select,
-    choose: ["Active", "Inactive"],
+    choose: ["Active", "Probation", "Inactive"],
   },
   {
     id: "exp",
@@ -50,13 +51,19 @@ const CreateEmployee = () => {
   //   setData((data) => ({ ...data, ...newData }));
   //   console.log(data);
   // };
+  const { state, dispatch } = useOutletContext();
 
   return (
     <main className="CEmain">
       <section className="CEsection">
         <h1 className="dethead">Create Employee</h1>
       </section>
-      <EmployeeForm fields={fields} />
+      <EmployeeForm
+        fields={fields}
+        state={state}
+        dispatch={dispatch}
+        text="Create"
+      />
     </main>
   );
 };

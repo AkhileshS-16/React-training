@@ -1,0 +1,48 @@
+const employees = [
+  {
+    ename: "Alice",
+    eid: "1qew",
+    jd: "05-04-2023",
+    Role: "HR",
+    status: "Active",
+    exp: "2 Years",
+    add: "Kochi",
+  },
+  {
+    ename: "Bob",
+    eid: "fg3y",
+    jd: "05-04-2024",
+    Role: "UX",
+    status: "Probation",
+    exp: "1 Year",
+    add: "KOllam",
+  },
+  {
+    ename: "Charlie",
+    eid: "4dh2",
+    jd: "05-04-2020",
+    Role: "UI",
+    status: "Active",
+    exp: "4 Years",
+    add: "Thrissur",
+  },
+  {
+    ename: "Dawn",
+    eid: "3y65",
+    jd: "05-04-2019",
+    Role: "Developer",
+    status: "Inactive",
+    exp: "3 Years",
+    add: "Kochi",
+  },
+  {
+    ename: "Eve",
+    eid: "ph44",
+    jd: "05-04-2021",
+    Role: "HR",
+    status: "Active",
+    exp: "3 Years",
+    add: "Trivandrum",
+  },
+];
+export default employees;

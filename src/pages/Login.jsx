@@ -72,7 +72,7 @@ const Login = () => {
           <Button
             text="Log In"
             className="loginbutton"
-            handleLogin={handleLogin}
+            handleSubmit={handleLogin}
           />
         </form>
       </div>

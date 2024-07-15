@@ -3,46 +3,43 @@ import Login from "./pages/Login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import HomePage from "./pages/HomePage";
-import Employees from "./pages/Employees";
 import EditEmployee from "./pages/EditEmployee";
 import DetailEmployee from "./pages/DetailEmployee";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/employees",
-    element: <HomePage />,
-    children: [
-      {
-        index: true,
-        element: <Employees />,
-      },
-      {
-        path: "create",
-        element: <CreateEmployee />,
-      },
-      {
-        path: "edit/:id",
-        element: <EditEmployee />,
-      },
-      {
-        path: "details/:id",
-        element: <DetailEmployee />,
-      },
-    ],
-  },
-]);
+import EmployeesList from "./pages/EmployeesList";
+import { useReducer } from "react";
+import employees from "./Data/Employees";
+import reducer from "./Reducer";
 
 const App = () => {
-  // const [state, setState] = useState(false);
-
-  // const handleLogin = () => {
-  //   setState(true);
-  // };
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Login />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/employees",
+      element: <HomePage />,
+      children: [
+        {
+          index: true,
+          element: <EmployeesList />,
+        },
+        {
+          path: "create",
+          element: <CreateEmployee />,
+        },
+        {
+          path: "edit/:id",
+          element: <EditEmployee />,
+        },
+        {
+          path: "details/:id",
+          element: <DetailEmployee />,
+        },
+      ],
+    },
+  ]);
 
   return <RouterProvider router={router} />;
 };

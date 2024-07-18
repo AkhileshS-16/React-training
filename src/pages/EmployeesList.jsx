@@ -2,16 +2,41 @@
 import "../Employees.css";
 import RoundButton from "../components/RoundButton";
 import plus from "../assets/plus.png";
-import { useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DeletePopUp from "../components/DeletePopUp";
 import EmployeeRow from "../components/EmployeeRow";
-import { actionTypes } from "../Reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { filter } from "../store/employeeReducer";
+import {
+  useDeleteEmployeeMutation,
+  useGetEmployeeListQuery,
+} from "../api/employeeApi";
 
 const EmployeesList = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const employees = useSelector((state) => state.employees.employees);
+  const filterBy = useSelector((state) => state.employees.filterBy);
   const [deleteId, toggleDelete] = useState("");
-  const { state, dispatch } = useOutletContext();
+  const [list, setList] = useState([]);
+  const { data = [], isSuccess } = useGetEmployeeListQuery();
+  const [deleteEmployee] = useDeleteEmployeeMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log("Successs");
+      const employees = data.map((employee) => ({
+        ...employee,
+        jd: new Date(employee.createdAt).toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }),
+      }));
+      setList(employees);
+    }
+  }, [data, isSuccess]);
 
   const handleOnClick = (id) => {
     navigate(`details/${id}`);
@@ -25,22 +50,14 @@ const EmployeesList = () => {
     toggleDelete("");
   };
   const onConfirm = () => {
-    dispatch({
-      type: actionTypes.DELETE_EMPLOYEE,
-      payload: deleteId,
-    });
+    deleteEmployee({ id: deleteId });
     toggleDelete("");
   };
 
   const filterChange = (e) => {
     console.log(e.target.value);
-    dispatch({
-      type: actionTypes.FILTER,
-      payload: e.target.value,
-    });
+    dispatch(filter(e.target.value));
   };
-
-  console.log(state);
 
   return (
     <main className="CEmain">
@@ -55,7 +72,7 @@ const EmployeesList = () => {
             <select
               className="selectfilter"
               id="filter"
-              defaultValue={state.filterBy}
+              defaultValue={filterBy}
               onChange={filterChange}
             >
               <option value="None">None</option>
@@ -70,35 +87,35 @@ const EmployeesList = () => {
       <section className="tabhead CEsection">
         <div className="head">Employee Name</div>
         <div className="head">Employee ID</div>
+        <div className="head">E-mail</div>
         <div className="head">Joining Date</div>
         <div className="head">Role</div>
         <div className="head">Status</div>
-        <div className="head">Experience</div>
         <div className="head">Action</div>
       </section>
-      {state.employees.map((e) => {
-        return state.filterBy == "None" ? (
+      {list.map((e) => {
+        return filterBy == "None" ? (
           <EmployeeRow
             ename={e.ename}
-            eid={e.eid}
+            eid={e.id}
             jd={e.jd}
             role={e.Role}
             status={e.status}
-            exp={e.exp}
-            key={e.eid}
-            onclick={() => handleOnClick(e.eid)}
-            handleDelete={() => handleDelete(e.eid)}
+            email={e.email}
+            key={e.id}
+            onclick={() => handleOnClick(e.id)}
+            handleDelete={() => handleDelete(e.id)}
           />
         ) : (
-          e.status == state.filterBy && (
+          e.status == filterBy && (
             <EmployeeRow
               ename={e.ename}
-              eid={e.eid}
+              eid={e.id}
               jd={e.jd}
               role={e.Role}
               status={e.status}
-              exp={e.exp}
-              key={e.eid}
+              email={e.email}
+              key={e.id}
               onclick={() => handleOnClick(e.eid)}
               handleDelete={() => handleDelete(e.eid)}
             />

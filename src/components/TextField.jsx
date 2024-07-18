@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-
+import React from "react";
 /* eslint-disable react/prop-types */
 const TextField = forwardRef(function Textfield(props, ref) {
   const onChange = (e) => {
@@ -16,6 +16,7 @@ const TextField = forwardRef(function Textfield(props, ref) {
       <label htmlFor={props.id}>{props.label}</label>
       <input
         type={props.type}
+        data-testid="texttest"
         className="logininput"
         id={props.id}
         placeholder={props.label}

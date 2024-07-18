@@ -1,9 +1,9 @@
 import RoundButton from "../components/RoundButton";
 import edit from "../assets/edit.png";
 import Status from "../components/status";
-import DetailColumn from "../components/DetailColumn";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useGetEmployeeByIdQuery } from "../api/employeeApi";
+import DetailRow from "../components/DetailRow";
 
 const fields = [
   {
@@ -11,12 +11,12 @@ const fields = [
     text: "Employee Name",
   },
   {
-    id: "jd",
-    text: "Joining Date",
+    id: "email",
+    text: "E-mail",
   },
   {
-    id: "exp",
-    text: "Experience",
+    id: "jd",
+    text: "Joining Date",
   },
   {
     id: "Role",
@@ -31,15 +31,25 @@ const fields = [
 ];
 
 const DetailEmployee = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
-  const { state } = useOutletContext();
-  let employees = state.employees;
-  let employee = false;
-  employee = employees.find((e) => e.eid == id);
-  useEffect(() => {
-    if (!employee) navigate("/employees");
-  }, []);
+  console.log(id);
+  // const { state } = useOutletContext();
+  // let employees = state.employees;
+  const { data = {} } = useGetEmployeeByIdQuery(id);
+  // employee = employees.find((e) => e.eid == id);
+  // useEffect(() => {
+  //   if (!employee) navigate("/employees");
+  // }, []);
+  console.log(data);
+
+  const employee = {
+    ...data,
+    jd: new Date(data.createdAt).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }),
+  };
 
   return (
     <main className="CEmain">
@@ -56,7 +66,7 @@ const DetailEmployee = () => {
                 <Status status={employee.status} />
               </div>
             ) : (
-              <DetailColumn
+              <DetailRow
                 id={field.id}
                 text={field.text}
                 value={employee[field.id]}
@@ -71,7 +81,11 @@ const DetailEmployee = () => {
             <label htmlFor="add" className="head">
               Address
             </label>
-            <div id="add">{employee.add}</div>
+            <div id="add">
+              {employee.address?.line1},
+              <br />
+              {employee.address?.pincode}
+            </div>
           </div>
           <div className="detailspace">
             <label htmlFor="eid" className="head">

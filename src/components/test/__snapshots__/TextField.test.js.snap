@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test TextField check snapshot 1`] = `
+<input
+  class="logininput"
+  data-testid="texttest"
+  id="test"
+  placeholder="test"
+  value="test"
+/>
+`;

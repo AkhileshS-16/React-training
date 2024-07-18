@@ -15,7 +15,7 @@ const HomePage = () => {
   console.log(token);
 
   useEffect(() => {
-    if (!token || token !== "true") navigate("/");
+    if (!token) navigate("/");
   }, []);
 
   return (

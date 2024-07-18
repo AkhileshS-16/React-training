@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Select from "../components/Select";
-import { useEffect } from "react";
 import EmployeeForm from "../components/EmployeeForm";
+import { useGetEmployeeByIdQuery } from "../api/employeeApi";
 
 const fields = [
   {
@@ -10,12 +10,12 @@ const fields = [
     text: "Employee Name",
   },
   {
-    id: "eid",
-    text: "Employee ID",
+    id: "email",
+    text: "E-mail",
   },
   {
-    id: "jd",
-    text: "Joining Date",
+    id: "id",
+    text: "Employee ID",
   },
   {
     id: "Role",
@@ -28,25 +28,28 @@ const fields = [
     choose: ["Active", "Probation", "Inactive"],
   },
   {
-    id: "exp",
-    text: "Experience",
+    id: "line1",
+    text: "Line1",
   },
   {
-    id: "add",
-    text: "Address",
+    id: "pincode",
+    text: "Pincode",
   },
 ];
 
 const EditEmployee = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
-  const { state, dispatch } = useOutletContext();
-  let employees = state.employees;
-  let employee = employees.find((e) => e.eid == id);
+  // const { state, dispatch } = useOutletContext();
+  // let employees = state.employees;
+  // let employee = employees.find((e) => e.eid == id);
+  const { data } = useGetEmployeeByIdQuery(id);
 
-  useEffect(() => {
-    if (!employee) navigate("/employees");
-  }, []);
+  // useEffect(() => {
+  //   // if (!data) navigate("/employees");
+  //   else {
+  //     console.log(data);
+  //   }
+  // }, [data]);
 
   return (
     <main className="CEmain">
@@ -57,9 +60,7 @@ const EditEmployee = () => {
         fields={fields}
         editid={id}
         iddisable={true}
-        employee={employee}
-        state={state}
-        dispatch={dispatch}
+        employee={data}
         text="Edit"
       />
     </main>

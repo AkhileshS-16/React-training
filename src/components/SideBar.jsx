@@ -18,9 +18,14 @@ const SideBar = () => {
         <img src={kvlogo} alt="KeyValue Logo" className="logo logoimg" />
       </header>
       <nav className="navigation">
-        <div>
-          <NavLink icon={icon} text="Employee List" />
-          <NavLink icon={add} text="Create Employee" link="create" />
+        <div className="tabs">
+          <NavLink icon={icon} text="Employee List" id="list" />
+          <NavLink
+            icon={add}
+            text="Create Employee"
+            link="create"
+            id="create"
+          />
         </div>
         <div>
           <NavLink icon={out} text="Logout" logout={logout} />

@@ -10,9 +10,17 @@ const Select = ({ id, choose, onselect, defaultValue }) => {
       <label className="detaillabel" htmlFor={id}>
         {id}
       </label>
-      <select id={id} onChange={onSelect} defaultValue={defaultValue}>
+      <select id={id} onChange={onSelect}>
         {choose.map((option) => {
-          return <option key={option}>{option}</option>;
+          return (
+            <option
+              key={option}
+              selected={option === defaultValue}
+              value={option}
+            >
+              {option}
+            </option>
+          );
         })}
       </select>
     </div>

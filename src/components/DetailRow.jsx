@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const DetailColumn = ({ id, text, value }) => {
+const DetailRow = ({ id, text, value }) => {
   return (
     <div className="detailspace">
       <label htmlFor={id} className="head">
@@ -9,4 +9,4 @@ const DetailColumn = ({ id, text, value }) => {
     </div>
   );
 };
-export default DetailColumn;
+export default DetailRow;

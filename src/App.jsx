@@ -6,9 +6,8 @@ import HomePage from "./pages/HomePage";
 import EditEmployee from "./pages/EditEmployee";
 import DetailEmployee from "./pages/DetailEmployee";
 import EmployeesList from "./pages/EmployeesList";
-import { useReducer } from "react";
-import employees from "./Data/Employees";
-import reducer from "./Reducer";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -41,6 +40,10 @@ const App = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />;
+    </Provider>
+  );
 };
 export default App;

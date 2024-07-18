@@ -1,6 +1,6 @@
 .tabhead {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr 1.5fr 1fr 1fr 1fr 0.7fr;
   color: #000;
   background-color: #93f1ff38;
   box-shadow: none;
@@ -15,7 +15,7 @@
 
 .tabbody {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr 1.5fr 1fr 1fr 1fr 0.7fr;
   gap: 30px;
   align-items: center;
   padding: 15px;
@@ -52,6 +52,7 @@
 
 .empaction {
   display: flex;
+  position: relative;
   gap: 20px;
   height: 24px;
 }

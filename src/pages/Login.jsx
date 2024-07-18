@@ -5,41 +5,46 @@ import loginlogo from "../assets/kv-login.jpeg";
 import kvlogo from "../assets/kv-logo.png";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../api/loginApi";
 
 // eslint-disable-next-line react/prop-types
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  //const [error, setError] = useState("");
   const loginFocus = useRef();
+  const [login, { isSuccess, data, isError }] = useLoginMutation();
 
   const handleLogin = () => {
-    localStorage.setItem("token", true);
-    navigate("/employees");
+    login({ email: username, password: password });
   };
 
   const handleUsername = (text) => {
-    if (text.length <= 5) {
-      setUsername(text);
-      setError("");
-    } else setError("Username Length Exceeded");
+    setUsername(text);
   };
 
   const handlePassWord = (text) => {
-    if (text.length <= 5) {
-      setPassword(text);
-      setError("");
-    } else setError("Password Length Exceeded");
+    setPassword(text);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.setItem("token", data.token);
+      navigate("/employees");
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    console.log("isError: ", isError);
+  }, [isError]);
 
   useEffect(() => {
     console.log(username, password);
   }, [username, password]);
 
-  useEffect(() => loginFocus.current.focus());
-
   useEffect(() => {
+    loginFocus.current.focus();
     if (localStorage.getItem("token")) navigate("/employees");
   }, []);
 
@@ -67,7 +72,6 @@ const Login = () => {
             type="password"
             handleSubmit={handlePassWord}
             value={password}
-            error={error}
           />
           <Button
             text="Log In"

@@ -1,58 +1,62 @@
-import { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import EmployeeText from "./EmployeeText";
-import { actionTypes } from "../Reducer";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import {
+  useAddEmployeeMutation,
+  useUpdateEmployeeMutation,
+} from "../api/employeeApi";
 
 /* eslint-disable react/prop-types */
-const EmployeeForm = ({
-  fields,
-  editid,
-  iddisable,
-  employee,
-  dispatch,
-  text,
-}) => {
+const EmployeeForm = ({ fields, editid, iddisable, employee, text }) => {
   const navigate = useNavigate();
-  const [data, setData] = useState(
-    employee
-      ? employee
-      : {
-          ename: "",
-          eid: "",
-          jd: "",
-          Role: "UI",
-          status: "Active",
-          exp: "",
-          add: "",
-        }
-  );
+  const [addEmployee, adddata] = useAddEmployeeMutation();
+  const [updateEmployee] = useUpdateEmployeeMutation();
+
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    if (employee) {
+      const list = { ...employee, ...employee?.address };
+      setData(list);
+    }
+  }, [employee]);
 
   const handleData = ([id, value]) => {
     let newData = {};
     newData[id] = value;
-    console.log(newData);
     setData((data) => ({ ...data, ...newData }));
   };
 
   const handleCreate = () => {
-    let eid = uuidv4();
-    eid = eid.slice(0, 4);
-    console.log("Create", data);
-    dispatch({
-      type: actionTypes.ADD_EMPLOYEE,
-      payload: { ...data, eid },
-    });
-    navigate("/employees");
+    // let eid = uuidv4();
+    // eid = eid.slice(0, 4);
+    // console.log("Create", data);
+    // dispatch(addEmployee({ ...data, eid }));
+
+    const { line1, pincode, ...newData } = {
+      ...data,
+      address: { line1: data.line1, pincode: data.pincode },
+    };
+    addEmployee(newData);
   };
 
+  const handleSubmitClick = (e) => {
+    e.preventDefault();
+    if (editid) {
+      console.log("edit1");
+      handleEdit();
+    } else handleCreate();
+  };
+
+  useEffect(() => {
+    // if (adddata.isSuccess) navigate("/employees");
+  }, [adddata]);
+
   const handleEdit = () => {
-    console.log("edit", data);
-    dispatch({
-      type: actionTypes.EDIT_EMPLOYEE,
-      payload: { data, eid: data.eid },
-    });
+    console.log("edit2", data);
+    updateEmployee({ ...data, eid: data.id });
     navigate("/employees");
   };
 
@@ -68,8 +72,9 @@ const EmployeeForm = ({
                 choose={field.choose}
                 onselect={handleData}
                 defaultValue={
-                  (field.id == "status" && data.status) ||
-                  (field.id == "Role" && data.Role)
+                  data?.id &&
+                  ((field.id == "status" && data.status) ||
+                    (field.id == "Role" && data.Role))
                 }
               />
             ) : (
@@ -90,10 +95,7 @@ const EmployeeForm = ({
           <Button
             text={text}
             className="CEbutton"
-            handleSubmit={
-              (window.location.href.includes("create") && handleCreate) ||
-              (window.location.href.includes("edit") && handleEdit)
-            }
+            handleSubmit={handleSubmitClick}
           />
           <Button
             text="Cancel"
